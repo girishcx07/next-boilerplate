@@ -52,10 +52,10 @@ Built-in feature from Next.js:
 
 ### Requirements
 
-- Node.js 20+ and npm. You can install it by running:
+- Node.js 24+ and pnpm. You can install Node.js by running:
 
 ```sh
-nvm install 20.12.2 && nvm use 20.12.2
+nvm install 24.20.0 && nvm use 24.20.0
 ```
 
 ### Getting started

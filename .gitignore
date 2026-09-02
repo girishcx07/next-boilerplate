@@ -47,6 +47,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env*.local
 
 # local folder
@@ -68,5 +69,4 @@ tsconfig.tsbuildinfo
 
 # Sentry Config File
 .sentryclirc
-
 
