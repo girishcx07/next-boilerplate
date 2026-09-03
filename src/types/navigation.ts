@@ -1,8 +1,10 @@
+import type { LucideIcon } from 'lucide-react';
 import type { HTMLAttributeAnchorTarget, ReactNode } from 'react';
 
 export type NavigationKeys = 'home' | 'dashboard' | 'about';
 
 export interface NavigationEntry {
+  icon?: LucideIcon;
   label?: string;
   link?: string;
   items?: Record<string, NavigationEntry>;

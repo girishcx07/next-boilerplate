@@ -18,8 +18,8 @@ const SidebarGroup: FC<SidebarGroupProps> = ({ groupName, items }) => (
     <SidebarGroupLabel>{groupName}</SidebarGroupLabel>
     <SidebarGroupContent>
       <SidebarMenu>
-        {items.map(({ label, link }) => (
-          <SidebarItem key={link} label={label} link={link} />
+        {items.map(({ icon, label, link }) => (
+          <SidebarItem key={link} icon={icon} label={label} link={link} />
         ))}
       </SidebarMenu>
     </SidebarGroupContent>

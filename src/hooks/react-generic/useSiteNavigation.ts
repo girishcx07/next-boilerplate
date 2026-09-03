@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react';
 import type { HTMLAttributeAnchorTarget } from 'react';
 
 import { siteNavigation } from '@/constants/siteNavigation';
@@ -7,6 +8,7 @@ type Context = Record<string, RichTranslationValues>;
 type Navigation = Record<string, NavigationEntry>;
 
 interface MappedNavigationEntry {
+  icon?: LucideIcon;
   items: Array<[string, MappedNavigationEntry]>;
   label: string;
   link: string;
@@ -35,9 +37,10 @@ const useSiteNavigation = () => {
       replaceLabelWithContext(label, context[key]);
 
     return Object.entries(entries).map(
-      ([key, { label, link, items, target }]): [string, MappedNavigationEntry] => [
+      ([key, { icon, label, link, items, target }]): [string, MappedNavigationEntry] => [
         key,
         {
+          icon,
           target,
           label: label ? getFormattedMessage(label, key) : '',
           link: link ? replaceLinkWithContext(link, context[key]) : '',
