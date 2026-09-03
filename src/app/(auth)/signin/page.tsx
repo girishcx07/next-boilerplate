@@ -10,11 +10,11 @@ export async function generateMetadata() {
   };
 }
 
-const SignInPage = async (props: { searchParams: { callbackUrl: string | undefined } }) => {
+const SignInPage = async (props: { searchParams: Promise<{ callbackUrl: string | undefined }> }) => {
   const { searchParams } = props;
   return (
     <div className="shadow-xl">
-      <div className="my-6 flex min-h-full min-w-[30rem] flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="my-6 flex min-h-full min-w-120 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto h-10 w-auto"

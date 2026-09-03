@@ -24,7 +24,7 @@ const authMiddleware = withAuth(
   }
 );
 
-export default function middleware(request: NextRequestWithAuth, event: NextFetchEvent) {
+export default function proxy(request: NextRequestWithAuth, event: NextFetchEvent) {
   if (isProtectedRoute(request)) return authMiddleware(request, event);
   return NextResponse.next();
 }

@@ -198,8 +198,6 @@ const config = {
     },
   },
   plugins: [
-    require('@savvywombat/tailwindcss-grid-areas'),
-    require('@tailwindcss/container-queries'),
     require('tailwindcss-animate'),
     require('@tailwindcss/typography'),
   ],

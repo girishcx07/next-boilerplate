@@ -12,15 +12,18 @@
     max-w-8xl
     grid-rows-[1fr]
     overflow-hidden
-    grid-areas-[sidebar_main_metabar,sidebar_footer_metabar]
     sm:grid-cols-[theme(spacing.52)_1fr_theme(spacing.52)]
     xl:grid-cols-[theme(spacing.80)_1fr_theme(spacing.80)]
     xs:m-0
     xs:block
     xs:overflow-auto;
 
+  grid-template-areas:
+    'sidebar main metabar'
+    'sidebar footer metabar';
+
   > *:nth-child(1) {
-    @apply grid-in-[sidebar];
+    grid-area: sidebar;
   }
 
   > *:nth-child(2) {
@@ -28,16 +31,17 @@
       overflow-x-hidden
       bg-gradient-subtle
       p-12
-      grid-in-[main]
       dark:bg-gradient-subtle-dark
       xl:px-18
       xs:bg-none
       xs:p-4
       xs:dark:bg-none;
+
+    grid-area: main;
   }
 
   > *:nth-child(3) {
-    @apply grid-in-[metabar];
+    grid-area: metabar;
   }
 
   > *:nth-child(4) {
@@ -52,9 +56,10 @@
       border-t-neutral-200
       bg-white
       py-4
-      grid-in-[footer]
       dark:border-t-neutral-900
       dark:bg-neutral-950;
+
+    grid-area: footer;
   }
 }
 

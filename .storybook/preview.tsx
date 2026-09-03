@@ -1,6 +1,6 @@
 import '../src/styles/globals.css';
 
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/nextjs';
 
 import { NotificationProvider } from '@/providers/NotificationProvider';
 

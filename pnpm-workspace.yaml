@@ -1,2 +1,28 @@
+engineStrict: true
+nodeLinker: hoisted
+
 overrides:
+  "@types/react": 19.2.18
   inquirer: ^9
+
+allowBuilds:
+  "@parcel/watcher": true
+  "@swc/core": true
+  core-js-pure: true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+
+minimumReleaseAgeExclude:
+  - '@storybook/addon-docs@10.6.0'
+  - '@storybook/addon-links@10.6.0'
+  - '@storybook/addon-mcp@10.6.0'
+  - '@storybook/builder-webpack5@10.6.0'
+  - '@storybook/core-webpack@10.6.0'
+  - '@storybook/nextjs@10.6.0'
+  - '@storybook/preset-react-webpack@10.6.0'
+  - '@storybook/react-dom-shim@10.6.0'
+  - '@storybook/react@10.6.0'
+  - '@storybook/test-runner@0.24.5'
+  - eslint-plugin-storybook@10.6.0
+  - storybook@10.6.0

@@ -17,7 +17,7 @@ import { getUrl } from './shared';
  * handling a tRPC call from a React Server Component.
  */
 const createContext = async (): Promise<TRPCContext> => {
-  const heads = new Headers(headers());
+  const heads = new Headers(await headers());
   heads.set('x-trpc-source', 'rsc');
 
   const request = new Request(getUrl(), {
