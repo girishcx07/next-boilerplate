@@ -5,6 +5,11 @@ overrides:
   "@types/react": 19.2.18
   inquirer: ^9
 
+packageExtensions:
+  "@typescript-eslint/typescript-estree@8.69.0":
+    dependencies:
+      typescript: 6.0.3
+
 allowBuilds:
   "@parcel/watcher": true
   "@swc/core": true
@@ -16,7 +21,6 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - '@storybook/addon-docs@10.6.0'
   - '@storybook/addon-links@10.6.0'
-  - '@storybook/addon-mcp@10.6.0'
   - '@storybook/builder-webpack5@10.6.0'
   - '@storybook/core-webpack@10.6.0'
   - '@storybook/nextjs@10.6.0'
