@@ -1,8 +1,12 @@
 import type { ComponentProps, FC } from 'react';
 
 import SidebarItem from '@/components/Containers/Sidebar/SidebarItem';
-
-import styles from './index.module.css';
+import {
+  SidebarGroup as SidebarGroupPrimitive,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarMenu,
+} from '@/components/ui/sidebar';
 
 type SidebarGroupProps = {
   groupName: string;
@@ -10,16 +14,16 @@ type SidebarGroupProps = {
 };
 
 const SidebarGroup: FC<SidebarGroupProps> = ({ groupName, items }) => (
-  <section className={styles.group}>
-    <label htmlFor="sidebar-group" className={styles.groupName}>
-      {groupName}
-    </label>
-    <ul className={styles.itemList}>
-      {items.map(({ label, link }) => (
-        <SidebarItem key={link} label={label} link={link} />
-      ))}
-    </ul>
-  </section>
+  <SidebarGroupPrimitive>
+    <SidebarGroupLabel>{groupName}</SidebarGroupLabel>
+    <SidebarGroupContent>
+      <SidebarMenu>
+        {items.map(({ label, link }) => (
+          <SidebarItem key={link} label={label} link={link} />
+        ))}
+      </SidebarMenu>
+    </SidebarGroupContent>
+  </SidebarGroupPrimitive>
 );
 
 export default SidebarGroup;

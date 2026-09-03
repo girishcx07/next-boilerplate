@@ -8,6 +8,7 @@ npm-debug.log
 build
 
 # Next.js Generated Files
+next-env.d.ts
 public/static/documents
 
 # Jest

@@ -1,6 +1,6 @@
-# Next.js 14+ Boilerplate with Next Auth, TRPC, Tailwind CSS 3.4, and TypeScript
+# Next.js 16 Boilerplate with Next Auth, tRPC, Tailwind CSS 4, and TypeScript
 
-Next.js 14 boilerplate with App Router support, Next Auth, TRPC, Tailwind CSS, and TypeScript ⚡️ Prioritizing developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, Jest, Testing Library, Commitlint, VSCode, PostCSS, Tailwind CSS, Authentication with [NextAuth](https://next-auth.js.org/), Storybook and more.
+Next.js 16 boilerplate with App Router support, React 19, Next Auth, tRPC, Tailwind CSS 4, and TypeScript ⚡️ Prioritizing developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, Jest, Testing Library, Commitlint, VSCode, PostCSS, Tailwind CSS, Authentication with [NextAuth](https://next-auth.js.org/), Storybook and more.
 
 Clone this project and use it to create your own [Next.js](https://nextjs.org) project. This project is a minimalistic boilerplate for Next.js with the following features:
 
@@ -11,12 +11,12 @@ Developer experience first, extremely flexible code structure and only keep what
 - ⚡ [Next.js](https://nextjs.org) with App Router support
 - 🔥 Type checking [TypeScript](https://www.typescriptlang.org)
 - 💎 Integrate with [Tailwind CSS](https://tailwindcss.com)
-- ✅ Strict Mode for TypeScript and React 18
+- ✅ Strict Mode for TypeScript and React 19
 - 🔒 Authentication with [Next Auth](https://next-auth.js.org/): Sign up, Sign in, Sign out.
 - ♻️ Type-safe environment variables with T3 Env
 - ⌨️ Form handling with React Hook Form
 - 🔴 Validation library with Zod
-- 📏 Linter with [ESLint](https://eslint.org) (default Next.js, Next.js Core Web Vitals, Tailwind CSS and Airbnb configuration)
+- 📏 Linter with [ESLint](https://eslint.org) (Next.js Core Web Vitals, Tailwind CSS, Storybook, Jest, and Playwright configuration)
 - 💖 Code Formatter with [Prettier](https://prettier.io)
 - 🦊 Husky for Git Hooks
 - 🚫 Lint-staged for running linters on Git staged files

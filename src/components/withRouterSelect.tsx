@@ -7,10 +7,15 @@ import Select from '@/components/Common/Select';
 
 type WithSidebarSelectProps = Pick<
   ComponentProps<typeof Select>,
-  'values' | 'defaultValue' | 'label'
+  'values' | 'defaultValue' | 'label' | 'className'
 >;
 
-const WithRouterSelect: FC<WithSidebarSelectProps> = ({ values, label, defaultValue }) => {
+const WithRouterSelect: FC<WithSidebarSelectProps> = ({
+  values,
+  label,
+  defaultValue,
+  className,
+}) => {
   const { push } = useRouter();
 
   return (
@@ -19,6 +24,7 @@ const WithRouterSelect: FC<WithSidebarSelectProps> = ({ values, label, defaultVa
       label={label}
       values={values}
       defaultValue={defaultValue}
+      className={className}
       onChange={value => push(value)}
     />
   );

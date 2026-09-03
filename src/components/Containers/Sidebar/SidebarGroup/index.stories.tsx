@@ -1,6 +1,7 @@
 import type { Meta as MetaObj, StoryObj } from '@storybook/nextjs';
 
 import SidebarGroup from '@/components/Containers/Sidebar/SidebarGroup';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 type Story = StoryObj<typeof SidebarGroup>;
 type Meta = MetaObj<typeof SidebarGroup>;
@@ -33,4 +34,13 @@ export const EmptyGroup: Story = {
   },
 };
 
-export default { component: SidebarGroup } as Meta;
+export default {
+  component: SidebarGroup,
+  decorators: [
+    Story => (
+      <SidebarProvider>
+        <Story />
+      </SidebarProvider>
+    ),
+  ],
+} as Meta;

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies, import/extensions */
 import { fileURLToPath } from 'node:url';
 
 import withBundleAnalyzer from '@next/bundle-analyzer';
@@ -42,12 +41,6 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     // We add it to the remote pattern for the static images we use from GitHub
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'tailwindui.com',
-        port: '',
-        pathname: '/**',
-      },
       {
         protocol: 'https',
         hostname: 'fonts.googleapis.com',

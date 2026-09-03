@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 export type Formatter = (input: string | number | null | undefined) => string;
 
 let isColorSupported: boolean;

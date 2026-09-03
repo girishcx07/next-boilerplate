@@ -3,7 +3,7 @@ name: Update dependencies
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 1 * *" # Run at midnight on the first day of every month
+    - cron: '0 0 1 * *' # Run at midnight on the first day of every month
 
 jobs:
   update:
@@ -20,17 +20,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install pnpm 
+      - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
-  
+
       - name: Get pnpm store directory
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-  
-      - name: Setup pnpm cache 
+
+      - name: Setup pnpm cache
         uses: actions/cache@v4
         with:
           path: ${{ env.STORE_PATH }}
@@ -48,5 +48,5 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.PAT }}
-          commit-message: "build: update dependencies to the latest version"
+          commit-message: 'build: update dependencies to the latest version'
           title: Update dependencies to the latest version

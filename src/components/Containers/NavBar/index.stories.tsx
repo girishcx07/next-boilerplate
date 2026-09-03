@@ -21,7 +21,6 @@ export const Default: Story = {
         link: '/about',
       },
     ],
-    onThemeTogglerClick: () => {},
   },
 };
 

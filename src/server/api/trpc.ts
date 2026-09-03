@@ -99,7 +99,6 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
  */
 export const createTRPCRouter = t.router;
 
-// eslint-disable-next-line prefer-destructuring
 export const createCallerFactory = t.createCallerFactory;
 
 /**

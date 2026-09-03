@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 'use client';
 
 import { ArrowRightIcon } from '@heroicons/react/24/solid';

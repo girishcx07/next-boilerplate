@@ -1,6 +1,6 @@
 {
-  "name": "Next14 boilerplate with Next Auth",
-  "short_name": "Next14 boilerplate with Next Auth",
+  "name": "Next.js 16 boilerplate with Next Auth",
+  "short_name": "Next.js 16 boilerplate",
   "icons": [
     {
       "src": "/static/favicons/android-chrome-192x192.png",

@@ -6,10 +6,5 @@ module.exports = {
   plugins: {
     '@tailwindcss/postcss': {},
     ...(process.env.NODE_ENV === 'production' ? { cssnano: {} } : {}),
-    'postcss-mixins': {},
-    'postcss-simple-vars': {},
-    'postcss-calc': {},
-    'postcss-import': {},
-    'tailwindcss/nesting': {},
   },
 };

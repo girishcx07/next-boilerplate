@@ -15,5 +15,5 @@ export const OPEN_SANS = OpenSans({
 // within Tailwind (tailwind.config.ts) and Storybook (preview.js)
 export const INTER = FontSans({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-inter',
 });

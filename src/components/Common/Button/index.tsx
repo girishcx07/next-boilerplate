@@ -1,15 +1,21 @@
 import type { AnchorHTMLAttributes, FC } from 'react';
 
 import Link from '@/components/Link';
-import { cn } from '@/lib/cn';
-
-import styles from './index.module.css';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 type ButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   kind?: 'neutral' | 'primary' | 'secondary' | 'special';
   // We have an extra `disabled` prop as we simulate a button
   disabled?: boolean;
 };
+
+const variants = {
+  neutral: 'outline',
+  primary: 'default',
+  secondary: 'secondary',
+  special: 'ghost',
+} as const;
 
 const Button: FC<ButtonProps> = ({
   kind = 'primary',
@@ -23,7 +29,11 @@ const Button: FC<ButtonProps> = ({
     role="button"
     href={disabled ? undefined : href}
     aria-disabled={disabled}
-    className={cn(styles.button, styles[kind], className)}
+    className={cn(
+      buttonVariants({ variant: variants[kind], size: 'lg' }),
+      'aria-disabled:pointer-events-none aria-disabled:opacity-50',
+      className
+    )}
     {...props}
   >
     {children}

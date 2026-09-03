@@ -9,7 +9,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata(props: IPortfolioDetailProps) {
-  const { slug } = (await props.params);
+  const { slug } = await props.params;
 
   return {
     title: `Portfolio ${slug}`,
@@ -18,7 +18,7 @@ export async function generateMetadata(props: IPortfolioDetailProps) {
 }
 
 const PortfolioDetail = async (props: IPortfolioDetailProps) => {
-  const { slug } = (await props.params);
+  const { slug } = await props.params;
   return (
     <>
       <h1 className="capitalize">Portfolio {slug}</h1>

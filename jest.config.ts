@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import type { Config } from 'jest';
-import nextJest from 'next/jest';
+import nextJest from 'next/jest.js';
 import path from 'path';
 
-dotenv.config({ path: path.resolve(__dirname, '.env.local') });
+dotenv.config({ path: path.resolve(import.meta.dirname, '.env.local') });
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load `next.config.js` and `.env` files in your test environment

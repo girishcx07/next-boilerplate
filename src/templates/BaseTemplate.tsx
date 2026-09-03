@@ -9,7 +9,7 @@ const BaseTemplate = (props: {
     <div className="w-full px-1 text-gray-700 antialiased">
       <div className="mx-auto grid size-full max-w-(--breakpoint-md) grid-cols-[1fr] grid-rows-[auto_1fr_auto]">
         <header className="border-b border-gray-300">
-          <div className="pb-8 pt-16">
+          <div className="pt-16 pb-8">
             <h1 className="mb-3 text-center text-3xl font-bold text-gray-900">{AppConfig.title}</h1>
             <h2 className="text-xl">{AppConfig.description}</h2>
           </div>

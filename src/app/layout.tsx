@@ -4,10 +4,11 @@ import type { Metadata } from 'next';
 import NextTopLoader from 'nextjs-toploader';
 import type { FC, PropsWithChildren } from 'react';
 
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { AppConfig } from '@/constants/appConfig';
 import BaseLayout from '@/layouts/Base';
-import { cn } from '@/lib/cn';
 import { INTER, OPEN_SANS } from '@/lib/next-fonts';
+import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { TRPCReactProvider } from '@/trpc/client';
 
@@ -42,12 +43,14 @@ export const metadata: Metadata = {
 
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
   return (
-    <html lang="en" className={fontClasses} suppressHydrationWarning>
+    <html lang="en" className={cn(fontClasses, 'font-sans')} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <TRPCReactProvider>
           <ThemeProvider>
-            <NextTopLoader height={5} />
-            <BaseLayout>{children}</BaseLayout>
+            <TooltipProvider>
+              <NextTopLoader height={5} />
+              <BaseLayout>{children}</BaseLayout>
+            </TooltipProvider>
           </ThemeProvider>
         </TRPCReactProvider>
       </body>

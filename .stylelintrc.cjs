@@ -2,10 +2,14 @@
 const CUSTOM_AT_RULES = [
   // Tailwind-specific at-rules
   'apply',
+  'config',
+  'custom-variant',
   'layer',
+  'reference',
   'responsive',
   'screen',
   'tailwind',
+  'theme',
   'variants',
   // PostCSS-specific at-rules
   'define-mixin',
@@ -26,18 +30,22 @@ const config = {
   plugins: ['stylelint-order', 'stylelint-selector-bem-pattern', 'stylelint-prettier'],
   rules: {
     // Enable Prettier Integration
-    "prettier/prettier": [true, require('./prettier.config.js')],
+    'prettier/prettier': [true, require('./prettier.config.js')],
     // Enforces Element Class Names to be camelCase
     'selector-class-pattern': ONLY_ALLOW_CAMEL_CASE_SELECTORS,
     // Enforces Element IDs to be camelCase
     'selector-id-pattern': ONLY_ALLOW_CAMEL_CASE_SELECTORS,
     // Allow Tailwind-based CSS Rules
     'at-rule-no-unknown': [true, { ignoreAtRules: CUSTOM_AT_RULES }],
+    'at-rule-prelude-no-invalid': [true, { ignoreAtRules: CUSTOM_AT_RULES }],
     // Allow the Global CSS Selector
     'selector-pseudo-class-no-unknown': [true, { ignorePseudoClasses: ['global'] }],
     // Enforces the order of the CSS properties to be in alphabetical order
     'order/properties-alphabetical-order': true,
     'no-descending-specificity': null,
+    // Keep shadcn's generated OKLCH tokens in their canonical numeric form.
+    'hue-degree-notation': null,
+    'lightness-notation': null,
     // Disables the Level-4 Media Queries; Since they're more exotic and less known
     'media-feature-range-notation': 'prefix',
     // Adopts the import notation from `postcss-import`

@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/no-custom-classname */
 import { render, screen } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 

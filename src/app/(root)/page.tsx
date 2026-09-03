@@ -1,7 +1,7 @@
 export async function generateMetadata() {
   return {
-    title: 'Next14 Boilerplate',
-    description: 'Next14 Boilerplate Description',
+    title: 'Next.js 16 Boilerplate',
+    description: 'Next.js 16 boilerplate with React 19 and Tailwind CSS 4',
   };
 }
 

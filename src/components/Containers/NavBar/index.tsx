@@ -1,20 +1,18 @@
 'use client';
 
-import Hamburger from '@heroicons/react/24/solid/Bars3Icon';
-import XMark from '@heroicons/react/24/solid/XMarkIcon';
-import * as Label from '@radix-ui/react-label';
+import { MenuIcon, XIcon } from 'lucide-react';
 import type { FC, HTMLAttributeAnchorTarget } from 'react';
 import { useState } from 'react';
 
 import ThemeToggle from '@/components/Common/ThemeToggle';
 import NavItem from '@/components/Containers/NavBar/NavItem';
 import Link from '@/components/Link';
-
-import style from './index.module.css';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const navInteractionIcons = {
-  show: <Hamburger className={style.navInteractionIcon} />,
-  close: <XMark className={style.navInteractionIcon} />,
+  show: <MenuIcon aria-hidden="true" />,
+  close: <XIcon aria-hidden="true" />,
 };
 
 type NavbarProps = {
@@ -23,32 +21,40 @@ type NavbarProps = {
     link: string;
     target?: HTMLAttributeAnchorTarget | undefined;
   }>;
-  onThemeTogglerClick: () => void;
 };
 
-const NavBar: FC<NavbarProps> = ({ navItems, onThemeTogglerClick }) => {
+const NavBar: FC<NavbarProps> = ({ navItems }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className={`${style.container}`}>
-      <div className={style.demoIconAndMobileItemsToggler}>
-        <Link className={style.demoIconWrapper} href="/" aria-label="Home">
+    <nav className="border-border bg-background lg:flex lg:h-16 lg:flex-row lg:items-center lg:gap-8 lg:border-b lg:px-8">
+      <div className="flex h-16 shrink-0 items-center border-b border-border px-4 lg:h-full lg:border-0 lg:px-0">
+        <Link className="h-7.5 flex-1 text-2xl" href="/" aria-label="Home">
           My Logo
         </Link>
 
-        <Label.Root
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
           onClick={() => setIsMenuOpen(prev => !prev)}
-          className={style.sidebarItemTogglerLabel}
-          htmlFor="sidebarItemToggler"
+          className="lg:hidden"
+          aria-controls="primary-navigation"
+          aria-expanded={isMenuOpen}
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
         >
-          {navInteractionIcons[isMenuOpen ? 'close' : 'show']}
-        </Label.Root>
+          <span data-icon="inline-start">{navInteractionIcons[isMenuOpen ? 'close' : 'show']}</span>
+        </Button>
       </div>
 
-      <input className="peer hidden" id="sidebarItemToggler" type="checkbox" />
-
-      <div className={`${style.main} peer-checked:flex`}>
-        <div className={style.navItems}>
+      <div
+        id="primary-navigation"
+        className={cn(
+          'hidden flex-1 flex-col lg:flex lg:flex-row lg:items-center',
+          isMenuOpen && 'flex'
+        )}
+      >
+        <div className="flex flex-col gap-1 border-b border-border p-4 lg:flex-1 lg:flex-row lg:border-0 lg:p-0">
           {navItems.map(({ text, link, target }) => (
             <NavItem key={link} href={link} target={target}>
               {text}
@@ -56,8 +62,8 @@ const NavBar: FC<NavbarProps> = ({ navItems, onThemeTogglerClick }) => {
           ))}
         </div>
 
-        <div className={style.actionsWrapper}>
-          <ThemeToggle onClick={onThemeTogglerClick} />
+        <div className="flex items-center gap-2 border-b border-border p-4 lg:border-0 lg:p-0">
+          <ThemeToggle />
         </div>
       </div>
     </nav>

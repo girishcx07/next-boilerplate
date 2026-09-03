@@ -2,7 +2,9 @@ import '../src/styles/globals.css';
 
 import type { Preview } from '@storybook/nextjs';
 
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { NotificationProvider } from '@/providers/NotificationProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 const preview: Preview = {
   parameters: {
@@ -17,9 +19,13 @@ const preview: Preview = {
   },
   decorators: [
     Story => (
-      <NotificationProvider viewportClassName="absolute top-0 left-0 list-none">
-        <Story />
-      </NotificationProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <NotificationProvider>
+            <Story />
+          </NotificationProvider>
+        </TooltipProvider>
+      </ThemeProvider>
     ),
   ],
 };

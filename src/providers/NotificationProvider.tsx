@@ -1,47 +1,41 @@
-import * as Toast from '@radix-ui/react-toast';
-import type { Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction } from 'react';
-import { createContext, useEffect, useState } from 'react';
+'use client';
 
-import Notification from '@/components/Common/Notification';
+import type { Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction } from 'react';
+import { createContext, useCallback, useRef } from 'react';
+
+import { toast, Toaster } from '@/components/ui/toast';
 
 type NotificationContextType = {
   message: string | ReactNode;
   duration: number;
 } | null;
 
-type NotificationProps = { viewportClassName?: string };
-
-const NotificationContext = createContext<NotificationContextType>(null);
-
 export const NotificationDispatch = createContext<
   Dispatch<SetStateAction<NotificationContextType>>
 >(() => {});
 
-export const NotificationProvider: FC<PropsWithChildren<NotificationProps>> = ({
-  viewportClassName,
-  children,
-}) => {
-  const [notification, dispatch] = useState<NotificationContextType>(null);
+export const NotificationProvider: FC<PropsWithChildren> = ({ children }) => {
+  const currentNotification = useRef<NotificationContextType>(null);
+  const dispatch = useCallback<Dispatch<SetStateAction<NotificationContextType>>>(value => {
+    const notification = typeof value === 'function' ? value(currentNotification.current) : value;
 
-  useEffect(() => {
-    const timeout = setTimeout(() => dispatch(null), notification?.duration);
+    currentNotification.current = notification;
 
-    return () => clearTimeout(timeout);
-  }, [notification]);
+    if (!notification) {
+      toast.close();
+      return;
+    }
+
+    toast.add({
+      title: notification.message,
+      timeout: notification.duration,
+    });
+  }, []);
 
   return (
-    <NotificationContext.Provider value={notification}>
-      <NotificationDispatch.Provider value={dispatch}>
-        <Toast.Provider>
-          {children}
-
-          <Toast.Viewport className={viewportClassName} />
-
-          {notification && (
-            <Notification duration={notification.duration}>{notification.message}</Notification>
-          )}
-        </Toast.Provider>
-      </NotificationDispatch.Provider>
-    </NotificationContext.Provider>
+    <NotificationDispatch.Provider value={dispatch}>
+      {children}
+      <Toaster />
+    </NotificationDispatch.Provider>
   );
 };

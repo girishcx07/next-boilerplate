@@ -1,6 +1,7 @@
 /** @type {import('prettier-plugin-embed').PrettierPluginEmbedOptions} */
 const prettierPluginEmbedConfig = {
-  embeddedSqlIdentifiers: ['sql'],
+  embeddedSqlComments: ['sql'],
+  embeddedSqlTags: ['sql'],
 };
 
 /** @type {import('prettier-plugin-sql').SqlBaseOptions} */

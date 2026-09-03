@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install pnpm 
+      - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
@@ -68,11 +68,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install pnpm 
+      - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
-  
+
       - name: Get pnpm store directory
         shell: bash
         run: |
@@ -119,11 +119,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install pnpm 
+      - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
-  
+
       - name: Get pnpm store directory
         shell: bash
         run: |
@@ -173,7 +173,7 @@ jobs:
 
       - name: Run E2E tests
         run: pnpm test:e2e
-        
+
       - uses: actions/upload-artifact@v3
         if: always()
         with:

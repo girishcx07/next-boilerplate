@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import type { ComponentProps, FC } from 'react';
 
 import Link from '@/components/Link';
-import { cn } from '@/lib/cn';
+import { cn } from '@/lib/utils';
 
 type ActiveLocalizedLinkProps = ComponentProps<typeof Link> & {
   activeClassName?: string;

@@ -10,26 +10,28 @@ export async function generateMetadata() {
   };
 }
 
-const SignInPage = async (props: { searchParams: Promise<{ callbackUrl: string | undefined }> }) => {
-  const { searchParams } = props;
+const SignInPage = async (props: {
+  searchParams: Promise<{ callbackUrl: string | undefined }>;
+}) => {
+  const { callbackUrl } = await props.searchParams;
   return (
     <div className="shadow-xl">
       <div className="my-6 flex min-h-full min-w-120 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
             className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            src="/apple-touch-icon.png"
             alt="Your Company"
-            width={12}
-            height={12}
+            width={40}
+            height={40}
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl leading-9 font-bold tracking-tight text-gray-900">
             Sign in to your account
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <SignInForm callbackUrl={searchParams.callbackUrl} />
+          <SignInForm callbackUrl={callbackUrl} />
         </div>
 
         <p className="mt-6 text-center">

@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-underscore-dangle */
 import 'server-only';
 
 import { headers } from 'next/headers';

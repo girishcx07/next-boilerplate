@@ -1,7 +1,5 @@
-/* eslint-disable global-require */
-/* eslint-disable import/no-extraneous-dependencies */
 import type { Config } from 'tailwindcss';
-import { fontFamily } from 'tailwindcss/defaultTheme';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 const config = {
   darkMode: ['class', '[data-theme="dark"]'],
@@ -36,7 +34,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-sans)', ...fontFamily.sans],
+        sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
         'open-sans': ['var(--font-open-sans)'],
       },
       colors: {
@@ -197,10 +195,7 @@ const config = {
       maxWidth: { '8xl': '95rem' },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config;
 
 export default config;

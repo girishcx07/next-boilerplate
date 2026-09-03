@@ -1,6 +1,7 @@
 import type { Meta as MetaObj, StoryObj } from '@storybook/nextjs';
 
 import Sidebar from '@/components/Containers/Sidebar';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
 type Story = StoryObj<typeof Sidebar>;
 type Meta = MetaObj<typeof Sidebar>;
@@ -79,4 +80,19 @@ export const Default: Story = {
   },
 };
 
-export default { component: Sidebar } as Meta;
+export default {
+  component: Sidebar,
+  decorators: [
+    Story => (
+      <SidebarProvider>
+        <Story />
+        <SidebarInset>
+          <header className="flex h-14 items-center gap-2 border-b px-4">
+            <SidebarTrigger />
+            <span className="text-sm font-medium">Sidebar preview</span>
+          </header>
+        </SidebarInset>
+      </SidebarProvider>
+    ),
+  ],
+} as Meta;

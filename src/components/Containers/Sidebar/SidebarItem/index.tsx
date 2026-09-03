@@ -1,23 +1,41 @@
-import { ArrowUpRightIcon } from '@heroicons/react/24/solid';
+'use client';
+
+import { ArrowUpRightIcon } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 
-import ActiveLink from '@/components/Common/ActiveLink';
-
-import styles from './index.module.css';
+import Link from '@/components/Link';
+import { SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 
 type SidebarItemProps = {
   label: string;
   link: string;
 };
 
-const SidebarItem: FC<SidebarItemProps> = ({ label, link }) => (
-  <li className={styles.sideBarItem}>
-    <ActiveLink href={link} activeClassName={styles.active}>
-      <span className={styles.label}>{label}</span>
+const SidebarItem: FC<SidebarItemProps> = ({ label, link }) => {
+  const pathname = usePathname();
+  const isExternal = link.startsWith('http');
+  const isActive =
+    !isExternal && (pathname === link || (link !== '/' && pathname.startsWith(`${link}/`)));
 
-      {link.startsWith('http') && <ArrowUpRightIcon className={styles.icon} />}
-    </ActiveLink>
-  </li>
-);
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton
+        isActive={isActive}
+        tooltip={label}
+        render={
+          <Link
+            href={link}
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noreferrer' : undefined}
+          />
+        }
+      >
+        <span>{label}</span>
+        {isExternal && <ArrowUpRightIcon aria-hidden="true" />}
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+};
 
 export default SidebarItem;
