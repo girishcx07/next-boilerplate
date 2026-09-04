@@ -1,4 +1,3 @@
-import { AuthGuard } from '@/components/AuthGuard';
 import { SessionProvider } from '@/providers/SessionProvider';
 import { getAuthSession } from '@/server/auth';
 
@@ -8,11 +7,7 @@ type AuthLayoutProps = {
 const AuthLayout = async ({ children }: AuthLayoutProps) => {
   const session = await getAuthSession();
 
-  return (
-    <SessionProvider session={session}>
-      <AuthGuard>{children}</AuthGuard>
-    </SessionProvider>
-  );
+  return <SessionProvider session={session}>{children}</SessionProvider>;
 };
 
 export const dynamic = 'force-dynamic';

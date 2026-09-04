@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title description">
+  <title id="title">Placeholder cover</title>
+  <desc id="description">A neutral geometric placeholder for the authentication cover image.</desc>
+  <rect width="1200" height="900" fill="#e4e4e7" />
+  <circle cx="600" cy="450" r="190" fill="#d4d4d8" />
+  <path d="M0 760 330 430l210 210 170-170 490 430H0Z" fill="#a1a1aa" opacity=".55" />
+</svg>

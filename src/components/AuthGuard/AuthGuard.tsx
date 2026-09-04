@@ -16,19 +16,15 @@ export const AuthGuard: React.FC<Props> = ({ children }) => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (pathname === '/signin' && session.status === 'authenticated') {
-      router.push('/dashboard');
-    }
-
     if (session.status === 'unauthenticated') {
-      router.push(`/signin?${searchParams.toString()}`);
+      const query = searchParams.toString();
+      const callbackUrl = query ? `${pathname}?${query}` : pathname;
+
+      router.replace(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`);
     }
   }, [session.status, pathname, router, searchParams]);
 
-  if (
-    session.status === 'loading' ||
-    (session.status === 'unauthenticated' && pathname !== '/signin')
-  ) {
+  if (session.status !== 'authenticated') {
     return (
       <div className="flex h-screen items-center justify-center">
         <ArrowPathIcon className="size-6 animate-spin" />

@@ -17,7 +17,7 @@ export const authConfig: AuthOptions = {
     strategy: 'jwt',
   },
   pages: {
-    signIn: '/signin',
+    signIn: '/login',
   },
   providers: [
     CredentialsProvider({

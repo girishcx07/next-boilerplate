@@ -6,9 +6,9 @@ import type { FC, PropsWithChildren } from 'react';
 
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { AppConfig } from '@/constants/appConfig';
-import BaseLayout from '@/layouts/Base';
 import { INTER, OPEN_SANS } from '@/lib/next-fonts';
 import { cn } from '@/lib/utils';
+import { NotificationProvider } from '@/providers/NotificationProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { TRPCReactProvider } from '@/trpc/client';
 
@@ -49,7 +49,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
           <ThemeProvider>
             <TooltipProvider>
               <NextTopLoader height={5} />
-              <BaseLayout>{children}</BaseLayout>
+              <NotificationProvider>{children}</NotificationProvider>
             </TooltipProvider>
           </ThemeProvider>
         </TRPCReactProvider>
