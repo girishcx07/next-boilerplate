@@ -9,8 +9,8 @@ export const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string().url(),
-    NEXTAUTH_URL: z.string().url(),
-    NEXTAUTH_SECRET: process.env.NODE_ENV === 'production' ? z.string() : z.string().optional(),
+    BETTER_AUTH_URL: z.string().url(),
+    BETTER_AUTH_SECRET: z.string().min(32),
     ANALYZE: z
       .enum(['true', 'false'])
       .optional()
@@ -27,8 +27,8 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     ANALYZE: process.env.ANALYZE,
 
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
+    BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
 
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },

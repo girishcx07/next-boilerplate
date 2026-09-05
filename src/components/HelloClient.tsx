@@ -1,8 +1,8 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { authClient } from '@/lib/auth-client';
 
 export const HelloClient = () => {
-  const session = useSession();
+  const session = authClient.useSession();
   return JSON.stringify(session, null, 2);
 };

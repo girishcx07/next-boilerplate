@@ -8,8 +8,8 @@
 
 # Database
 *.db
-# Drizzle generated artifacts
-/drizzle/
+# Drizzle scratch artifacts. Keep /drizzle migrations, snapshots, and journal
+# in source control so every environment applies the same schema history.
 .drizzle/
 
 # testing

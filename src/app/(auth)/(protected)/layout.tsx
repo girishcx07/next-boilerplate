@@ -1,7 +1,15 @@
-import { AuthGuard } from '@/components/AuthGuard';
+import { redirect } from 'next/navigation';
 
-const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
-  return <AuthGuard>{children}</AuthGuard>;
+import { getAuthSession } from '@/server/auth';
+
+const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
+  const session = await getAuthSession();
+
+  if (!session) {
+    redirect('/login');
+  }
+
+  return children;
 };
 
-export default ProtectedLayout;
+export default AuthLayout;

@@ -7,8 +7,9 @@ on:
     branches: [main]
 
 env:
-  NEXTAUTH_URL: http://localhost:3000
-  NEXTAUTH_SECRET: yc2t4Jt+9tl0IBPHbpkLymkPGZqIJ4pmPKAkRUSbpuI=
+  BETTER_AUTH_URL: http://localhost:3000
+  BETTER_AUTH_SECRET: yc2t4Jt+9tl0IBPHbpkLymkPGZqIJ4pmPKAkRUSbpuI=
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/next_boilerplate
   NEXT_PUBLIC_APP_URL: http://localhost:3000
   NEXT_TELEMETRY_DISABLED: 1
 
@@ -110,6 +111,21 @@ jobs:
     name: Run all tests
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: next_boilerplate
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d next_boilerplate"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -148,6 +164,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Apply database migrations
+        run: pnpm db:migrate
 
       - name: Build Next.js for E2E tests
         run: pnpm build

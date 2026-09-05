@@ -7,7 +7,7 @@ const Hello = async () => {
 
   return (
     <>
-      <p>👋 Hello {session?.user.username || ''}</p>
+      <p>👋 Hello {session?.user.name || session?.user.email || ''}</p>
       <pre>
         <HelloClient />
       </pre>

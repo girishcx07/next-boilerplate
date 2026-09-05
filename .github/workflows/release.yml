@@ -8,8 +8,9 @@ on:
     branches:
       - main
 env:
-  NEXTAUTH_URL: http://localhost:3000
-  NEXTAUTH_SECRET: yc2t4Jt+9tl0IBPHbpkLymkPGZqIJ4pmPKAkRUSbpuI=
+  BETTER_AUTH_URL: http://localhost:3000
+  BETTER_AUTH_SECRET: yc2t4Jt+9tl0IBPHbpkLymkPGZqIJ4pmPKAkRUSbpuI=
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/next_boilerplate
   NEXT_PUBLIC_APP_URL: http://localhost:3000
   NEXT_TELEMETRY_DISABLED: 1
 

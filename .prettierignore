@@ -37,6 +37,7 @@ tsconfig.tsbuildinfo
 
 # Metadata Files
 CODEOWNERS
+drizzle/meta
 
 # Prettier's Handlebar parser is limited and chokes on some syntax features
 # https://github.com/prettier/prettier/issues/11834

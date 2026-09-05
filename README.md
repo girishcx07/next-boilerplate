@@ -1,6 +1,6 @@
-# Next.js 16 Boilerplate with Next Auth, tRPC, Drizzle, Tailwind CSS 4, and TypeScript
+# Next.js 16 Boilerplate with Better Auth, tRPC, Drizzle, Tailwind CSS 4, and TypeScript
 
-Next.js 16 boilerplate with App Router support, React 19, Next Auth, tRPC, Drizzle ORM with PostgreSQL, Tailwind CSS 4, and TypeScript ⚡️ Prioritizing developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, Jest, Testing Library, Commitlint, VSCode, PostCSS, Tailwind CSS, Authentication with [NextAuth](https://next-auth.js.org/), Storybook and more.
+Next.js 16 boilerplate with App Router support, React 19, Better Auth, tRPC, Drizzle ORM with PostgreSQL, Tailwind CSS 4, and TypeScript ⚡️ Prioritizing developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, Jest, Testing Library, Commitlint, VSCode, PostCSS, Tailwind CSS, authentication with [Better Auth](https://better-auth.com/), Storybook and more.
 
 Clone this project and use it to create your own [Next.js](https://nextjs.org) project. This project is a minimalistic boilerplate for Next.js with the following features:
 
@@ -12,7 +12,7 @@ Developer experience first, extremely flexible code structure and only keep what
 - 🔥 Type checking [TypeScript](https://www.typescriptlang.org)
 - 💎 Integrate with [Tailwind CSS](https://tailwindcss.com)
 - ✅ Strict Mode for TypeScript and React 19
-- 🔒 Authentication with [Next Auth](https://next-auth.js.org/): Sign up, Sign in, Sign out.
+- 🔒 Database-backed authentication with [Better Auth](https://better-auth.com/): sign up, sign in, sign out, and protected tRPC procedures.
 - 🗄️ Type-safe PostgreSQL database access with [Drizzle ORM](https://orm.drizzle.team/)
 - ♻️ Type-safe environment variables with T3 Env
 - ⌨️ Form handling with React Hook Form
@@ -79,6 +79,17 @@ cp .env.example .env.local
 
 and update the environment variables with your own values.
 
+Generate a high-entropy Better Auth secret and add it to `.env.local`:
+
+```shell
+openssl rand -base64 32
+```
+
+```dotenv
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET=replace-with-the-generated-value
+```
+
 ### Database
 
 This boilerplate uses Drizzle ORM with PostgreSQL through the `postgres` driver. Set `DATABASE_URL` in `.env.local` before running database commands:
@@ -105,7 +116,26 @@ pnpm db:push
 pnpm db:studio
 ```
 
-Drizzle output under `/drizzle` is intentionally ignored by Git in this boilerplate. Use `db:generate` followed by `db:migrate` when working locally with generated migrations, or use `db:push` to sync a local database directly from the schema.
+SQL migrations under `/drizzle` are source-controlled. Use `db:generate` after schema changes and review the generated SQL before applying it with `db:migrate`. Use `db:push` only for disposable local prototyping.
+
+### Authentication architecture
+
+- `src/server/auth.ts` configures Better Auth, its Drizzle adapter, email/password authentication, and UUID identifiers.
+- `src/lib/auth-client.ts` is the client-only Better Auth entry point used by the login, signup, and logout UI.
+- `src/app/api/auth/[...all]/route.ts` mounts the Better Auth Next.js handler at `/api/auth`.
+- `src/proxy.ts` performs only an optimistic session-cookie redirect. The protected layout and tRPC middleware validate the session against the server-side auth API.
+- `src/trpc/init.ts` adds the Better Auth session to tRPC context and exposes `protectedProcedure`.
+- Signup stores validated first name, last name, mobile number, and email fields. The mobile number uses E.164 international format.
+
+Apply the committed auth schema migration before signing in:
+
+```shell
+pnpm db:migrate
+```
+
+Better Auth handles password hashing and verification with its built-in secure defaults.
+
+The files under `/drizzle` are migrations rather than runtime logs. Commit the SQL files and `meta` history so CI and deployed environments can reproduce schema changes; `.prettierignore` only excludes generated snapshots from formatting.
 
 Then, you can run the project locally in development mode with live reload by executing:
 
@@ -146,15 +176,14 @@ Open [http://localhost:3000](http://localhost:3000) with your favorite browser t
 │   ├── templates                   # Templates folder
 │   ├── trpc                        # tRPC folder
 │   ├── types                       # Type definitions
-│   ├── utils                       # Utilities folder
-│   └── validations                 # Validation schemas(Zod)
+│   └── utils                       # Utilities folder
 ├── tests
 │   ├── e2e                         # E2E tests, also includes Monitoring as Code
 │   └── integration                 # Integration tests
 ├── tailwind.config.js              # Tailwind CSS configuration
 ├── tsconfig.json                   # TypeScript configuration
 ├── drizzle.config.ts               # Drizzle Kit configuration
-└── drizzle                         # Ignored Drizzle-generated artifacts
+└── drizzle                         # Source-controlled SQL migrations and metadata
 ```
 
 ### Customization
@@ -196,14 +225,6 @@ The project uses Playwright for Integration and E2E testing. You can run the tes
 ```shell
 npx playwright install # Only for the first time in a new environment
 pnpm test:e2e
-```
-
-### Enable Edge runtime (optional)
-
-The App Router folder is compatible with the Edge runtime. You can enable it by uncommenting the following lines `src/app/layout.tsx`:
-
-```tsx
-// export const runtime = 'edge';
 ```
 
 ### Deploy to production
