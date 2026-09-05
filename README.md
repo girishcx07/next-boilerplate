@@ -1,6 +1,6 @@
-# Next.js 16 Boilerplate with Next Auth, tRPC, Tailwind CSS 4, and TypeScript
+# Next.js 16 Boilerplate with Next Auth, tRPC, Drizzle, Tailwind CSS 4, and TypeScript
 
-Next.js 16 boilerplate with App Router support, React 19, Next Auth, tRPC, Tailwind CSS 4, and TypeScript ⚡️ Prioritizing developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, Jest, Testing Library, Commitlint, VSCode, PostCSS, Tailwind CSS, Authentication with [NextAuth](https://next-auth.js.org/), Storybook and more.
+Next.js 16 boilerplate with App Router support, React 19, Next Auth, tRPC, Drizzle ORM with PostgreSQL, Tailwind CSS 4, and TypeScript ⚡️ Prioritizing developer experience first: Next.js, TypeScript, ESLint, Prettier, Husky, Lint-Staged, Jest, Testing Library, Commitlint, VSCode, PostCSS, Tailwind CSS, Authentication with [NextAuth](https://next-auth.js.org/), Storybook and more.
 
 Clone this project and use it to create your own [Next.js](https://nextjs.org) project. This project is a minimalistic boilerplate for Next.js with the following features:
 
@@ -13,6 +13,7 @@ Developer experience first, extremely flexible code structure and only keep what
 - 💎 Integrate with [Tailwind CSS](https://tailwindcss.com)
 - ✅ Strict Mode for TypeScript and React 19
 - 🔒 Authentication with [Next Auth](https://next-auth.js.org/): Sign up, Sign in, Sign out.
+- 🗄️ Type-safe PostgreSQL database access with [Drizzle ORM](https://orm.drizzle.team/)
 - ♻️ Type-safe environment variables with T3 Env
 - ⌨️ Form handling with React Hook Form
 - 🔴 Validation library with Zod
@@ -78,6 +79,34 @@ cp .env.example .env.local
 
 and update the environment variables with your own values.
 
+### Database
+
+This boilerplate uses Drizzle ORM with PostgreSQL through the `postgres` driver. Set `DATABASE_URL` in `.env.local` before running database commands:
+
+```dotenv
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/next_boilerplate
+```
+
+The Drizzle client is available from `@/server/db` and the schema is maintained in `src/server/db/schema.ts`. Database access belongs in Server Components, Route Handlers, server actions, or tRPC procedures; do not import the database client into Client Components.
+
+Run the following commands from the project root:
+
+```shell
+# Generate SQL migrations from schema changes
+pnpm db:generate
+
+# Apply committed migrations to PostgreSQL
+pnpm db:migrate
+
+# Push the schema directly during local prototyping
+pnpm db:push
+
+# Open Drizzle Studio
+pnpm db:studio
+```
+
+Drizzle output under `/drizzle` is intentionally ignored by Git in this boilerplate. Use `db:generate` followed by `db:migrate` when working locally with generated migrations, or use `db:push` to sync a local database directly from the schema.
+
 Then, you can run the project locally in development mode with live reload by executing:
 
 ```shell
@@ -104,6 +133,7 @@ Open [http://localhost:3000](http://localhost:3000) with your favorite browser t
 │   │   └── __tests__                # Jest/RTL component tests
 │   ├── constants                   # constants folder
 │   ├── server                      # server folder
+│   │   └── db                      # Drizzle client and PostgreSQL schema
 │   ├── stores                      # Store folder (Zustand)
 │   ├── hooks                       # hooks folder
 │   |   ├── react-client            # client side hooks
@@ -122,7 +152,9 @@ Open [http://localhost:3000](http://localhost:3000) with your favorite browser t
 │   ├── e2e                         # E2E tests, also includes Monitoring as Code
 │   └── integration                 # Integration tests
 ├── tailwind.config.js              # Tailwind CSS configuration
-└── tsconfig.json                   # TypeScript configuration
+├── tsconfig.json                   # TypeScript configuration
+├── drizzle.config.ts               # Drizzle Kit configuration
+└── drizzle                         # Ignored Drizzle-generated artifacts
 ```
 
 ### Customization

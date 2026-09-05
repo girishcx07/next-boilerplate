@@ -8,6 +8,9 @@
 
 # Database
 *.db
+# Drizzle generated artifacts
+/drizzle/
+.drizzle/
 
 # testing
 coverage

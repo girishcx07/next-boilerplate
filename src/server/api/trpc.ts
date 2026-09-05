@@ -12,6 +12,8 @@ import { getToken } from 'next-auth/jwt';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 
+import { db } from '@/server/db';
+
 import { authService } from './routers/auth/service/auth.service';
 import type { AuthToken } from './routers/auth/service/auth.service.types';
 
@@ -59,6 +61,7 @@ export const createTRPCContext = async (opts: CreateContextOptions) => {
   const contextInner = createTRPCInnerContext({ authToken });
   return {
     ...contextInner,
+    db,
     req: opts.req,
     headers: opts.headers,
   };
