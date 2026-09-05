@@ -1,1 +1,1 @@
-export * from './get-auth-token';
+export * from './get-auth-session';

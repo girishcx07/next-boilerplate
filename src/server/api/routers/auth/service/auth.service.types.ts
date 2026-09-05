@@ -1,3 +1,4 @@
+import type { Session } from 'next-auth';
 import type { JWT } from 'next-auth/jwt';
 
 import type { LoginInputType } from '../auth.input';
@@ -14,5 +15,5 @@ export type LoginArgs = {
 
 export type LogoutArgs = {
   headers: Headers;
-  authToken: AuthToken;
+  session: Session;
 };

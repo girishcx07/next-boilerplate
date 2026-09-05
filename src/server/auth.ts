@@ -1,92 +1,10 @@
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
-import { type AuthOptions, getServerSession } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-
-import { api } from '@/trpc/server';
+import { getServerSession } from 'next-auth';
 
 import { Logger } from './api/common/logger';
+import { authConfig } from './auth.config';
 
-/**
- * Options for NextAuth.js used to configure adapters, providers, callbacks,
- * etc.
- *
- * @see https://next-auth.js.org/configuration/options
- * */
-export const authConfig: AuthOptions = {
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/login',
-  },
-  providers: [
-    CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
-      name: 'Credentials',
-      credentials: {
-        username: { label: 'Username', type: 'text', placeholder: 'paalamugan' },
-        password: { label: 'Password', type: 'password' },
-      },
-      async authorize(credentials) {
-        if (!credentials) {
-          throw new Error('No credentials provided');
-        }
-
-        const result = await api.auth.signIn({ credentials });
-
-        if (!result) {
-          throw new Error('Invalid credentials');
-        }
-
-        return {
-          id: result.id,
-          username: result.username,
-        };
-      },
-    }),
-  ],
-  events: {
-    async signIn({ user }) {
-      Logger.info('User signed in', user);
-    },
-    // async signOut() {
-    //   Logger.info('User signed out');
-    // },
-    // async createUser({ user }) {
-    //   Logger.info('User created', user);
-    // },
-    // async updateUser({ user }) {
-    //   Logger.info('User updated', user);
-    // },
-    // async linkAccount({ user, account }) {
-    //   Logger.info('Account linked', { user, account });
-    // },
-    // async session({ session }) {
-    //   Logger.info('Session', session);
-    // },
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      const newToken = { ...token };
-      if (user) {
-        newToken.id = user.id;
-        newToken.username = user.username;
-      }
-
-      return newToken;
-    },
-    async session({ token, session }) {
-      const newSession = { ...session };
-      if (token) {
-        newSession.user = {
-          id: token.id,
-          username: token.username,
-        };
-      }
-      return newSession;
-    },
-  },
-} satisfies AuthOptions;
+export { authConfig } from './auth.config';
 
 export async function getAuthSession(
   ...args:

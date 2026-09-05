@@ -1,8 +1,8 @@
 import { api } from '@/trpc/server';
 
-export const getAuthToken = async () => {
+export const getAuthSession = async () => {
   try {
-    return await api.auth.authToken();
+    return await api.auth.session();
   } catch {
     return null;
   }

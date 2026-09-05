@@ -1,3 +1,3 @@
-import { type AuthToken } from '@/server/api/routers/auth/service/auth.service.types';
+import type { Session } from 'next-auth';
 
-export type AuthTokenQueryResult = AuthToken;
+export type AuthSessionQueryResult = Session;

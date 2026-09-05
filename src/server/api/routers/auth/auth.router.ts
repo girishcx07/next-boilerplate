@@ -1,7 +1,7 @@
 import { TRPCError } from '@trpc/server';
 
 import { Logger } from '@/server/api/common/logger';
-import { type AuthTokenQueryResult } from '@/server/api/routers/auth/auth.types';
+import { type AuthSessionQueryResult } from '@/server/api/routers/auth/auth.types';
 import { authService } from '@/server/api/routers/auth/service/auth.service';
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '@/server/api/trpc';
 
@@ -13,14 +13,14 @@ export const authRouter = createTRPCRouter({
     return authService.signIn({ input, headers: ctx.headers });
   }),
 
-  authToken: protectedProcedure.query(async ({ ctx }): Promise<AuthTokenQueryResult> => {
-    return ctx.authToken;
+  session: protectedProcedure.query(async ({ ctx }): Promise<AuthSessionQueryResult> => {
+    return ctx.session;
   }),
 
   signOut: protectedProcedure.mutation(async ({ ctx }) => {
     try {
       await authService.signOut({
-        authToken: ctx.authToken,
+        session: ctx.session,
         headers: ctx.headers,
       });
     } catch (error: unknown) {

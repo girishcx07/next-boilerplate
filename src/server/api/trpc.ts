@@ -8,21 +8,21 @@
  */
 import { initTRPC, TRPCError } from '@trpc/server';
 import type { NextRequest } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+import type { Session } from 'next-auth';
+import { getServerSession } from 'next-auth';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 
 import { db } from '@/server/db';
 
-import { authService } from './routers/auth/service/auth.service';
-import type { AuthToken } from './routers/auth/service/auth.service.types';
+import { authConfig } from '../auth.config';
 
 /**
  * Defines your inner context shape.
  * Add fields here that the inner context brings.
  */
 interface CreateInnerContextOptions {
-  authToken: AuthToken | null;
+  session: Session | null;
 }
 
 interface CreateContextOptions {
@@ -55,10 +55,8 @@ const createTRPCInnerContext = (opts: CreateInnerContextOptions) => {
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: CreateContextOptions) => {
-  const authToken = await getToken({
-    req: opts.req,
-  });
-  const contextInner = createTRPCInnerContext({ authToken });
+  const session = await getServerSession(authConfig);
+  const contextInner = createTRPCInnerContext({ session });
   return {
     ...contextInner,
     db,
@@ -114,31 +112,23 @@ export const createCallerFactory = t.createCallerFactory;
 export const publicProcedure = t.procedure;
 
 type ProtectedProcedureOpts = TRPCContext & {
-  authToken: AuthToken;
+  session: Session;
 };
 const enforceUserIsAuthenticated = t.middleware(async opts => {
-  const { authToken } = opts.ctx;
+  const { session } = opts.ctx;
 
   try {
-    if (!authToken) {
+    if (!session) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',
         message: 'You must be logged in to perform this action',
       });
     }
 
-    const isAuthTokenValid = await authService.checkNextAuthTokenIsValid(authToken);
-    if (!isAuthTokenValid) {
-      throw new TRPCError({
-        code: 'UNAUTHORIZED',
-        message: 'Invalid auth token or missing token data',
-      });
-    }
-
     return await opts.next({
       ctx: {
         ...opts.ctx,
-        authToken,
+        session,
       } satisfies ProtectedProcedureOpts,
     });
   } catch (error: unknown) {
@@ -147,7 +137,7 @@ const enforceUserIsAuthenticated = t.middleware(async opts => {
     }
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: 'Failed to verify session token',
+      message: 'Failed to verify session',
     });
   }
 });

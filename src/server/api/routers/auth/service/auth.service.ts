@@ -10,11 +10,6 @@ import {
 class AuthService {
   private readonly logger = new Logger(AuthService.name);
 
-  async checkNextAuthTokenIsValid(authToken: AuthToken | null): Promise<boolean> {
-    // FIXME: Implement actual token validation logic
-    return !!authToken?.id;
-  }
-
   public async signIn(args: LoginArgs): Promise<AuthToken> {
     try {
       // FIXME: Implement actual login logic
