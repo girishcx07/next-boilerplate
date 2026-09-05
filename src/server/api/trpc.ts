@@ -124,7 +124,7 @@ const enforceUserIsAuthenticated = t.middleware(async opts => {
       });
     }
 
-    const isAuthTokenValid = authService.checkNextAuthTokenIsValid(authToken);
+    const isAuthTokenValid = await authService.checkNextAuthTokenIsValid(authToken);
     if (!isAuthTokenValid) {
       throw new TRPCError({
         code: 'UNAUTHORIZED',

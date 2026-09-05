@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 
-import DashboardPage from '@/app/(auth)/(protected)/dashboard/page';
+import { NavActions } from '@/components/nav-actions';
 
-const meta = { component: DashboardPage } satisfies Meta<typeof DashboardPage>;
+const meta = { component: NavActions } satisfies Meta<typeof NavActions>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
