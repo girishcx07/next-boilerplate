@@ -100,6 +100,8 @@ Open [http://localhost:3000](http://localhost:3000) with your favorite browser t
 ├── src
 │   ├── app                         # Next JS App (App Router)
 │   ├── components                  # React components
+│   │   ├── __stories__              # Storybook stories
+│   │   └── __tests__                # Jest/RTL component tests
 │   ├── constants                   # constants folder
 │   ├── server                      # server folder
 │   ├── stores                      # Store folder (Zustand)
@@ -148,6 +150,8 @@ One of the benefits of using Conventional Commits is that it allows us to automa
 ### Testing
 
 All unit tests are located with the source code inside the same directory. So, it makes it easier to find them. The project uses Jest and React Testing Library for unit testing. You can run the tests with:
+
+Storybook stories are grouped under `src/components/__stories__`. They are component scenarios for Storybook, not Jest tests, and are discovered by `.storybook/main.ts`.
 
 ```shell
 pnpm test

@@ -23,6 +23,7 @@ build-storybook.log
 /test-results/
 /playwright-report/
 /playwright/.cache/
+.playwright-cli/
 
 # next.js
 /.next
@@ -69,4 +70,3 @@ tsconfig.tsbuildinfo
 
 # Sentry Config File
 .sentryclirc
-
