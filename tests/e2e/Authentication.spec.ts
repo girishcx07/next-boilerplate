@@ -28,6 +28,17 @@ test.describe('Authentication', () => {
     await expect(
       page.getByRole('link', { name: 'Project Management & Task Tracking', exact: true })
     ).toBeVisible();
+
+    await page.goto('/login');
+    await expect(page).toHaveURL(/\/dashboard$/);
+
+    await page.goto('/signup');
+    await expect(page).toHaveURL(/\/dashboard$/);
+
+    await page.goto('/');
+    await expect(page.getByText('Your profile')).toBeVisible();
+    await expect(page.getByText('E2E User')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Profile' })).toBeVisible();
   });
 
   test('should redirect an unauthenticated visitor to login', async ({ page }) => {

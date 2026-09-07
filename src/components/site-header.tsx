@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { Button } from '@/components/ui/button';
 import { AppConfig } from '@/constants/appConfig';
+import { getAuthSession } from '@/server/auth';
 
 const navigation = [
   { href: '/', label: 'Home' },
@@ -10,7 +11,9 @@ const navigation = [
   { href: '/portfolio', label: 'Portfolio' },
 ];
 
-export const SiteHeader = () => {
+export const SiteHeader = async () => {
+  const session = await getAuthSession();
+
   return (
     <header className="border-b bg-background">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4">
@@ -29,9 +32,15 @@ export const SiteHeader = () => {
           ))}
         </nav>
         <ThemeToggle />
-        <Button variant="outline" render={<Link href="/login" />} nativeButton={false}>
-          Login
-        </Button>
+        {session ? (
+          <Button variant="outline" render={<Link href="/dashboard" />} nativeButton={false}>
+            Profile
+          </Button>
+        ) : (
+          <Button variant="outline" render={<Link href="/login" />} nativeButton={false}>
+            Login
+          </Button>
+        )}
       </div>
     </header>
   );
